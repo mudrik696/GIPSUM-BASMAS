@@ -7,7 +7,7 @@ else{const t=encodeURIComponent(`Assalamualaikum, saya ${nama} sudah berdonasi $
 $("bx").innerHTML=`<p>Jazakumullah khairan${nama?", <b>"+esc(nama)+"</b>":""}! Pendaftaran Anda tercatat.</p>
 <p class="sm" style="margin-top:12px">Total donasi</p><div class="big">${rp(n)}</div><p class="sm">Kode referensi: <span class="ref">${esc(ref)}</span></p>
 <div class="pay"><b>${qr?"Scan QRIS":"Transfer ke rekening"}</b>
-${qr?'<p class="sm">Scan kode QRIS pada poster GIPSUM atau gambar di bawah.</p><img src="qris.png" alt="QRIS GIPSUM" style="max-width:260px;width:100%;margin-top:8px;border-radius:10px" onerror="this.remove()">':""}
+${qr?'<p class="sm">Scan kode QRIS pada poster GIPSUM atau gambar di bawah.</p><img src="Qris.png" alt="QRIS GIPSUM" style="max-width:260px;width:100%;margin-top:8px;border-radius:10px" onerror="this.remove()">':""}
 <div class="no" id="no">${REK.no}</div>${REK.bank}<br>a.n ${REK.an}<div style="margin-top:10px"><button class="btn o" id="cp" type="button" style="padding:7px 14px;font-size:.88rem">Salin nomor rekening</button></div></div>
 <h3 style="margin-top:20px">Konfirmasi pembayaran</h3><p class="sm">Setelah membayar, kirim bukti ke WhatsApp ${REK.waTampil} (Azkiyatus Sholihah). Donasi akan tampil terverifikasi di halaman transparansi setelah dicek bendahara.</p>
 <p style="margin-top:14px"><a class="btn" href="https://wa.me/${REK.wa}?text=${t}">Kirim Bukti via WhatsApp</a> <a class="btn o" href="transparansi.html">Lihat Transparansi</a></p>`;
