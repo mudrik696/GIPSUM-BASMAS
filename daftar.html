@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pendaftaran Donatur – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pendaftaran Donatur – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body><div class="w">
 <section class="sec"><h2>Pendaftaran Donatur</h2><div class="card">
 <div class="tabs"><button type="button" id="t1" class="on">Donatur Tetap</button><button type="button" id="t2">Donasi Sekali</button></div>
 <div class="row"><div><label for="nm">Nama lengkap</label><input id="nm" autocomplete="name"></div><div><label for="pg">Program tujuan</label><select id="pg"></select></div></div>
@@ -10,7 +10,7 @@
 <div class="ck"><input type="checkbox" id="an"><label for="an">Tampilkan nama saya sebagai “Hamba Allah”</label></div>
 <p style="margin-top:18px"><button class="btn" id="sb" type="button">Lanjut ke Pembayaran</button></p>
 <p class="sm">WhatsApp dan email hanya dilihat bendahara, tidak ditampilkan ke publik.</p><div id="fm"></div></div></section>
-</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="js/app.js"></script><script>
 let tipe="Donatur Tetap";$("pg").innerHTML=opts(PROGRAMS);
 [10000,25000,50000,100000].forEach(v=>{const b=document.createElement("button");b.type="button";b.textContent=rp(v);b.onclick=()=>$("nom").value=v;$("ch").appendChild(b)});
 function setT(t){tipe=t;$("t1").className=t=="Donatur Tetap"?"on":"";$("t2").className=t=="Donatur Tetap"?"":"on";$("frw").style.display=t=="Donatur Tetap"?"":"none"}

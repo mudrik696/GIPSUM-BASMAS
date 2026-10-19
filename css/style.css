@@ -31,3 +31,5 @@ input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--bd);bo
 .tbtn{padding:3px 9px;border-radius:7px;border:1px solid var(--pr);background:none;color:var(--pr);cursor:pointer;margin-left:6px}
 .big{font:700 2rem Fraunces,serif;color:var(--pr)}.ref{font:600 1.1rem monospace;letter-spacing:.08em}
 .bar{height:8px;background:var(--pr2);border-radius:9px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--pr)}
+.admin-card{margin-top:14px}
+.login-actions{margin-top:16px}

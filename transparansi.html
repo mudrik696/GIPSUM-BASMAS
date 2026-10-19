@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Transparansi Dana – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Transparansi Dana – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head><body><div class="w">
 <section class="sec"><h2>Transparansi Dana</h2><div class="g3" id="ts"></div></section>
 <section class="sec"><div class="card"><h3>Per Program</h3><div id="pp"></div></div></section>
 <section class="sec"><div class="card"><h3>Pengeluaran / Penyaluran</h3><div class="tw"><table><thead><tr><th>Tanggal</th><th>Program</th><th>Keterangan</th><th>Jumlah</th></tr></thead><tbody id="ex"></tbody></table></div><p class="sm" id="exe"></p></div></section>
 <section class="sec"><div class="card"><h3>Daftar Donatur</h3><div class="tw"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Jenis</th><th>Program</th><th>Jumlah</th><th>Status</th></tr></thead><tbody id="dn"></tbody></table></div><p class="sm" id="dne"></p></div></section>
-</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="js/app.js"></script><script>
 loadPublic().then(r=>{
  if(r.err)$("exe").textContent="Gagal memuat data. Periksa konfigurasi Supabase.";
  $("ts").innerHTML=`<div class="card stat"><small>Total masuk</small><b>${rp(r.tin)}</b></div><div class="card stat"><small>Total disalurkan</small><b>${rp(r.tout)}</b></div><div class="card stat"><small>Saldo</small><b>${rp(r.tin-r.tout)}</b></div>`;
