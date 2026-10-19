@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<section class="sec"><h2>Panel Bendahara</h2>
+<div class="card" id="lgn"><label for="le">Email</label><input id="le" type="email" autocomplete="username"><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"><p style="margin-top:16px"><button class="btn" id="lb" type="button">Login</button></p><p id="lm" class="err"></p></div>
+<div id="pn" hidden><p><button class="btn o" id="lo" type="button">Logout</button></p>
+<div class="card" style="margin-top:14px"><h3>Verifikasi Donatur</h3><div class="tw"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Kontak</th><th>Jenis</th><th>Program</th><th>Jumlah</th><th>Aksi</th></tr></thead><tbody id="dn"></tbody></table></div></div>
+<div class="card" style="margin-top:14px"><h3>Catat Pengeluaran</h3>
+<div class="row"><div><label for="ed">Tanggal</label><input id="ed" type="date"></div><div><label for="ep">Program</label><select id="ep"></select></div></div>
+<div class="row"><div><label for="ek">Keterangan</label><input id="ek"></div><div><label for="ej">Jumlah (Rp)</label><input id="ej" type="number" min="1"></div></div>
+<p><button class="btn" id="eb" type="button">Simpan</button></p></div></div></section>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+$("ep").innerHTML=opts(PROGRAMS);$("ed").valueAsDate=new Date();
+async function show(){const r=await sb.rpc("is_admin"),ok=r.data===true;$("lgn").hidden=ok;$("pn").hidden=!ok;if(ok)load();return ok}
+async function load(){const a=await sb.from("donors").select("*").order("created_at",{ascending:false});
+ $("dn").innerHTML=(a.data||[]).map(d=>`<tr><td>${fd(d.created_at)}</td><td>${esc(d.nama)}${d.anonim?" <span class='sm'>(anonim)</span>":""}</td><td>${esc(d.whatsapp||"-")}<br><span class="sm">${esc(d.email||"")}</span></td><td>${esc(d.tipe)}<br><span class="sm">${esc(d.frekuensi)}</span></td><td>${esc(d.program)}</td><td>${rp(d.nominal)}</td><td>${d.status=="verified"?'<span class="tag">Terverifikasi</span>':`<button class="tbtn" data-v="${d.id}">Verifikasi</button>`}<button class="tbtn" data-x="${d.id}">Hapus</button></td></tr>`).join("")}
+$("dn").onclick=async e=>{const v=e.target.dataset.v,x=e.target.dataset.x;let r;
+ if(v)r=await sb.from("donors").update({status:"verified"}).eq("id",v);
+ else if(x&&confirm("Hapus data ini?"))r=await sb.from("donors").delete().eq("id",x);else return;
+ if(r.error)alert("Gagal: "+r.error.message);load()};
+$("lb").onclick=async()=>{const r=await sb.auth.signInWithPassword({email:$("le").value.trim(),password:$("lp").value});
+ if(r.error){$("lm").textContent="Login gagal: "+r.error.message;return}
+ if(!(await show()))$("lm").textContent="Akun ini belum terdaftar sebagai bendahara."};
+$("lo").onclick=async()=>{await sb.auth.signOut();show()};
+$("eb").onclick=async()=>{const keterangan=$("ek").value.trim(),jumlah=+$("ej").value;if(!keterangan||!jumlah)return alert("Isi keterangan dan jumlah.");
+ const r=await sb.from("expenses").insert({tanggal:$("ed").value,program:$("ep").value,keterangan,jumlah});
+ if(r.error)return alert("Gagal: "+r.error.message);$("ek").value=$("ej").value="";alert("Pengeluaran tercatat.")};
+show();
+</script></body></html>

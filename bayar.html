@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pembayaran – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<section class="sec"><h2>Pembayaran Donasi</h2><div class="card" id="bx"></div></section>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+const q=new URLSearchParams(location.search),n=+q.get("n"),ref=q.get("ref"),nama=q.get("nama")||"",qr=q.get("m")=="QRIS";
+if(!n||!ref){$("bx").innerHTML='<p>Belum ada data donasi. Silakan <a href="daftar.html" style="color:var(--pr)">daftar terlebih dahulu</a>.</p>'}
+else{const t=encodeURIComponent(`Assalamualaikum, saya ${nama} sudah berdonasi ${rp(n)} (kode ${ref}) untuk GIPSUM. Berikut bukti pembayaran.`);
+$("bx").innerHTML=`<p>Jazakumullah khairan${nama?", <b>"+esc(nama)+"</b>":""}! Pendaftaran Anda tercatat.</p>
+<p class="sm" style="margin-top:12px">Total donasi</p><div class="big">${rp(n)}</div><p class="sm">Kode referensi: <span class="ref">${esc(ref)}</span></p>
+<div class="pay"><b>${qr?"Scan QRIS":"Transfer ke rekening"}</b>
+${qr?'<p class="sm">Scan kode QRIS pada poster GIPSUM atau gambar di bawah.</p><img src="qris.png" alt="QRIS GIPSUM" style="max-width:260px;width:100%;margin-top:8px;border-radius:10px" onerror="this.remove()">':""}
+<div class="no" id="no">${REK.no}</div>a.n ${REK.an}<div style="margin-top:10px"><button class="btn o" id="cp" type="button" style="padding:7px 14px;font-size:.88rem">Salin nomor rekening</button></div></div>
+<h3 style="margin-top:20px">Konfirmasi pembayaran</h3><p class="sm">Setelah membayar, kirim bukti ke WhatsApp ${REK.waTampil} (Azkiyatus Sholihah). Donasi akan tampil terverifikasi di halaman transparansi setelah dicek bendahara.</p>
+<p style="margin-top:14px"><a class="btn" href="https://wa.me/${REK.wa}?text=${t}">Kirim Bukti via WhatsApp</a> <a class="btn o" href="transparansi.html">Lihat Transparansi</a></p>`;
+$("cp").onclick=()=>{navigator.clipboard?.writeText(REK.no.replace(/-/g,""));$("cp").textContent="Tersalin ✓"}}
+</script></body></html>

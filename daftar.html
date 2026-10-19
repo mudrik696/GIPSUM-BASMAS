@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Pendaftaran Donatur – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<section class="sec"><h2>Pendaftaran Donatur</h2><div class="card">
+<div class="tabs"><button type="button" id="t1" class="on">Donatur Tetap</button><button type="button" id="t2">Donasi Sekali</button></div>
+<div class="row"><div><label for="nm">Nama lengkap</label><input id="nm" autocomplete="name"></div><div><label for="pg">Program tujuan</label><select id="pg"></select></div></div>
+<div class="row"><div><label for="nom">Nominal (Rp)</label><input id="nom" type="number" min="1000" step="1000" inputmode="numeric" placeholder="50000"><div class="chips" id="ch"></div></div>
+<div id="frw"><label for="fr">Frekuensi infaq</label><select id="fr"><option>Setiap bulan</option><option>Setiap minggu</option><option>Setiap hari Jumat</option></select></div></div>
+<div class="row"><div><label for="wa">WhatsApp (privat)</label><input id="wa" type="tel" inputmode="tel" placeholder="08xx"></div><div><label for="em">Email (opsional, privat)</label><input id="em" type="email"></div></div>
+<label for="mt">Metode pembayaran</label><select id="mt"><option>Transfer bank</option><option>QRIS</option></select>
+<label for="ct">Catatan / doa (opsional)</label><textarea id="ct" rows="2"></textarea>
+<div class="ck"><input type="checkbox" id="an"><label for="an">Tampilkan nama saya sebagai “Hamba Allah”</label></div>
+<p style="margin-top:18px"><button class="btn" id="sb" type="button">Lanjut ke Pembayaran</button></p>
+<p class="sm">WhatsApp dan email hanya dilihat bendahara, tidak ditampilkan ke publik.</p><div id="fm"></div></div></section>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+let tipe="Donatur Tetap";$("pg").innerHTML=opts(PROGRAMS);
+[10000,25000,50000,100000].forEach(v=>{const b=document.createElement("button");b.type="button";b.textContent=rp(v);b.onclick=()=>$("nom").value=v;$("ch").appendChild(b)});
+function setT(t){tipe=t;$("t1").className=t=="Donatur Tetap"?"on":"";$("t2").className=t=="Donatur Tetap"?"":"on";$("frw").style.display=t=="Donatur Tetap"?"":"none"}
+$("t1").onclick=()=>setT("Donatur Tetap");$("t2").onclick=()=>setT("Donasi Sekali");
+$("sb").onclick=async()=>{const nama=$("nm").value.trim(),nominal=+$("nom").value,m=$("fm");
+ if(nama.length<2||nominal<1000){m.innerHTML='<p class="err">Isi nama dan nominal minimal Rp1.000.</p>';return}
+ $("sb").disabled=true;const id=crypto.randomUUID();
+ const r=await sb.from("donors").insert({id,nama,nominal,tipe,frekuensi:tipe=="Donatur Tetap"?$("fr").value:"-",program:$("pg").value,metode:$("mt").value,catatan:$("ct").value.trim()||null,whatsapp:$("wa").value.trim()||null,email:$("em").value.trim()||null,anonim:$("an").checked});
+ if(r.error){m.innerHTML='<p class="err">Gagal menyimpan: '+esc(r.error.message)+'</p>';$("sb").disabled=false;return}
+ location.href="bayar.html?"+new URLSearchParams({ref:id.slice(0,8).toUpperCase(),n:nominal,nama,m:$("mt").value});};
+</script></body></html>

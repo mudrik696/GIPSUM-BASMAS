@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Transparansi Dana – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<section class="sec"><h2>Transparansi Dana</h2><div class="g3" id="ts"></div></section>
+<section class="sec"><div class="card"><h3>Per Program</h3><div id="pp"></div></div></section>
+<section class="sec"><div class="card"><h3>Pengeluaran / Penyaluran</h3><div class="tw"><table><thead><tr><th>Tanggal</th><th>Program</th><th>Keterangan</th><th>Jumlah</th></tr></thead><tbody id="ex"></tbody></table></div><p class="sm" id="exe"></p></div></section>
+<section class="sec"><div class="card"><h3>Daftar Donatur</h3><div class="tw"><table><thead><tr><th>Tanggal</th><th>Nama</th><th>Jenis</th><th>Program</th><th>Jumlah</th><th>Status</th></tr></thead><tbody id="dn"></tbody></table></div><p class="sm" id="dne"></p></div></section>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+loadPublic().then(r=>{
+ if(r.err)$("exe").textContent="Gagal memuat data. Periksa konfigurasi Supabase.";
+ $("ts").innerHTML=`<div class="card stat"><small>Total masuk</small><b>${rp(r.tin)}</b></div><div class="card stat"><small>Total disalurkan</small><b>${rp(r.tout)}</b></div><div class="card stat"><small>Saldo</small><b>${rp(r.tin-r.tout)}</b></div>`;
+ $("pp").innerHTML=PROGRAMS.map(p=>{const i=r.ok.filter(d=>d.program==p).reduce((s,d)=>s+d.nominal,0),o=r.EX.filter(e=>e.program==p).reduce((s,e)=>s+e.jumlah,0);return `<p style="margin:10px 0 0"><b>${p}</b> <span class="sm">masuk ${rp(i)} · keluar ${rp(o)}</span></p><div class="bar"><i style="width:${i?Math.min(100,o/i*100):0}%"></i></div>`}).join("");
+ $("ex").innerHTML=r.EX.map(e=>`<tr><td>${fd(e.tanggal)}</td><td>${esc(e.program)}</td><td style="white-space:normal">${esc(e.keterangan)}</td><td>${rp(e.jumlah)}</td></tr>`).join("");
+ if(!r.EX.length)$("exe").textContent="Belum ada pengeluaran yang dicatat.";
+ $("dn").innerHTML=r.DN.map(d=>`<tr><td>${fd(d.created_at)}</td><td>${esc(d.nama)}</td><td>${esc(d.tipe)}</td><td>${esc(d.program)}</td><td>${rp(d.nominal)}</td><td><span class="tag ${d.status=="verified"?"":"p"}">${d.status=="verified"?"Terverifikasi":"Menunggu verifikasi"}</span></td></tr>`).join("");
+ if(!r.DN.length)$("dne").textContent="Belum ada donatur. Jadilah yang pertama!";});
+</script></body></html>

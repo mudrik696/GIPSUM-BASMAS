@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Beranda – GIPSUM BASMAS UKKI PENS</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div class="w">
+<header class="hero"><h1>Gerakan Infaq PENS untuk Umat</h1>
+<p>Salurkan infaq terbaik Anda untuk kegiatan Badan Sosial Masyarakat (BASMAS) UKKI PENS di desa binaan Medokan Semampir, Surabaya.</p>
+<div class="q">“Amalan yang paling dicintai Allah adalah yang konsisten meski sedikit.” <span class="sm">(HR. Bukhari &amp; Muslim)</span></div>
+<a class="btn" href="daftar.html">Daftar Donatur</a> <a class="btn o" href="transparansi.html">Lihat Transparansi</a></header>
+<section class="sec"><div class="g3" id="st"></div></section>
+<section class="sec"><h2>Program Kami</h2><div class="g3">
+<div class="card"><h3>ProPaJaYa</h3><p>Pemberian santunan pada program pembinaan ibu janda dan anak yatim.</p></div>
+<div class="card"><h3>Bakso Keramat</h3><p>Bakti sosial untuk keperluan umat.</p></div>
+<div class="card"><h3>Jundullah</h3><p>Program dakwah dan pembinaan umat BASMAS.</p></div></div></section>
+<section class="sec"><h2>Cara Berdonasi</h2><div class="g3">
+<div class="card"><span class="num">1</span><h3>Daftar</h3><p>Isi data donatur tetap atau donasi sekali.</p></div>
+<div class="card"><span class="num">2</span><h3>Bayar</h3><p>Transfer atau scan QRIS, lalu kirim bukti via WhatsApp.</p></div>
+<div class="card"><span class="num">3</span><h3>Pantau</h3><p>Lihat penggunaan dana secara terbuka di halaman transparansi.</p></div></div></section>
+</div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="app.js"></script><script>
+loadPublic().then(r=>{$("st").innerHTML=`<div class="card stat"><small>Dana terkumpul</small><b>${rp(r.tin)}</b></div><div class="card stat"><small>Donasi terverifikasi</small><b>${r.ok.length}</b></div><div class="card stat"><small>Donatur tetap</small><b>${r.ok.filter(d=>d.tipe=="Donatur Tetap").length}</b></div>`});
+</script></body></html>
